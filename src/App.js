@@ -24,7 +24,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      numberOfLogos: 1
+      numberOfLogos: 2
     };
   }
   render() {
