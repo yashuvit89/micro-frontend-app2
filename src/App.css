@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.Logos {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.AppDetails {
+  display: flex;
+  align-items: center;
+}
