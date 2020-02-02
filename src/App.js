@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import styled, { keyframes } from "styled-components";
@@ -17,11 +17,10 @@ const AppLogo = styled.img.attrs({
 })`
   height: 25vmin;
   pointer-events: none;
-  animation: ${pulse} infinite ${props => props.count}s linear;
+  animation: ${pulse} infinite ${props => props.speed}s linear;
 `;
 
 const Button = styled.button`
-  /* Adapt the colors based on primary prop */
   background: ${props => (props.primary ? "palevioletred" : "white")};
   color: ${props => (props.primary ? "white" : "palevioletred")};
   font-size: 1em;
@@ -32,24 +31,30 @@ const Button = styled.button`
 `;
 
 export default function App(props) {
-  // let { path, url } = useRouteMatch();
-  const [count, setCount] = useState(20);
+  const [speed, setSpeed] = useState(20);
+  const [count, setCount] = useState(1);
 
   const Logos = [];
-  for (let i = 0; i < 2; i++) {
-    Logos.push(<AppLogo count={count}></AppLogo>);
+  for (let i = 0; i < count; i++) {
+    Logos.push(<AppLogo speed={speed}></AppLogo>);
   }
+
+  useEffect(() => {
+    document.addEventListener("APP1:addLogo", e => {
+      setCount(e.detail.value);
+    });
+  });
 
   return (
     <div className="App">
       <header className="App-header">
         <div className="Logos">{Logos}</div>
         <div className="AppDetails">
-          <Button onClick={() => setCount(count + 5)}>-</Button>
+          <Button onClick={() => setSpeed(speed + 5)}>-</Button>
           <p>App 2</p>
           <Button
             primary
-            onClick={() => setCount(count - 5 < 0.5 ? 0.5 : count - 5)}
+            onClick={() => setSpeed(speed - 5 < 0.5 ? 0.5 : speed - 5)}
           >
             +
           </Button>
