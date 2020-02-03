@@ -39,10 +39,16 @@ export default function App(props) {
     Logos.push(<AppLogo speed={speed}></AppLogo>);
   }
 
+  const eventIncreaseSpeed = new CustomEvent("APP2:increaseSpeed", {
+    bubbles: true,
+    detail: { value: speed }
+  });
+
   useEffect(() => {
     document.addEventListener("APP1:addLogo", e => {
       setCount(e.detail.value);
     });
+    document.dispatchEvent(eventIncreaseSpeed);
   });
 
   return (
